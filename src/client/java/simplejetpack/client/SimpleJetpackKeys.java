@@ -53,25 +53,18 @@ public class SimpleJetpackKeys {
             return;
         }
 
-//        var jetpack = JetpackItem.getEquippedJetpack(minecraft.player);
-//        if (!JetpackItem.getActive(jetpack)) {
-//            if (!player.getAbilities().flying && flyBinding.isDown()) {
-//                JetpackItem.setActive(jetpack, true);
-//                player.getAbilities().flying = true;
-//                player.getAbilities().mayfly = true;
-//                if (ClientPlayNetworking.canSend(SetJetpackActiveC2SPayload.ID)) {
-//                    ClientPlayNetworking.send(new SetJetpackActiveC2SPayload(true));
-//                }
-//            }
-//            else if (player.getAbilities().flying && !flyBinding.isDown()) {
-//                JetpackItem.setActive(jetpack, false);
-//                player.getAbilities().flying = false;
-//                player.getAbilities().mayfly = false;
-//                if (ClientPlayNetworking.canSend(SetJetpackActiveC2SPayload.ID)) {
-//                    ClientPlayNetworking.send(new SetJetpackActiveC2SPayload(false));
-//                }
-//            }
-//        }
+        if (minecraft.player.onGround() && !minecraft.player.isSpectator() && !minecraft.player.isCreative()) {
+            var jetpack = JetpackItem.getEquippedJetpack(minecraft.player);
+            if (JetpackItem.getActive(jetpack)) {
+                JetpackItem.setActive(jetpack, false);
+                player.getAbilities().flying = false;
+                player.getAbilities().mayfly = false;
+                if (ClientPlayNetworking.canSend(SetJetpackActiveC2SPayload.ID)) {
+                    ClientPlayNetworking.send(new SetJetpackActiveC2SPayload(false));
+                }
+            }
+
+        }
     }
 
     private static void toggleJetpackActive(Minecraft client) {
@@ -84,7 +77,7 @@ public class SimpleJetpackKeys {
                     player.getAbilities().flying = active;
                     player.getAbilities().mayfly = active;
 
-                    if (!player.isFallFlying() && active) {
+                    if (player.onGround() && active) {
                         player.setPos(player.getX(), player.getY()+0.5, player.getZ());
                     }
 
