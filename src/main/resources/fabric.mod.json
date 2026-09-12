@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "simplejetpack",
+	"version": "${version}",
+	"name": "simplejetpack",
+	"description": "This mod provides a simple jetpack that allows you to fly around.",
+	"authors": [
+		"Inferis"
+	],
+	"contact": {
+		"homepage": "https://inferis.org",
+		"sources": "https://github.com/inferis/simplejetpack"
+	},
+	"license": "MIT",
+	"icon": "assets/simplejetpack/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+          "simplejetpack.SimpleJetpack"
+		],
+		"client": [
+			"simplejetpack.client.SimpleJetpackClient"
+		]
+	},
+	"mixins": [
+		{
+			"config": "simplejetpack.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"accessWidener": "simplejetpack.classtweaker",
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

@@ -1,0 +1,15 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "property": "minecraft:has_component",
+    "component": "simplejetpack:active",
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "simplejetpack:item/jetpack_active"
+    },
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "simplejetpack:item/jetpack_inactive"
+    }
+  }
+}
