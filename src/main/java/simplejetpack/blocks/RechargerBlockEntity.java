@@ -90,13 +90,11 @@ public class RechargerBlockEntity extends BlockEntity implements MenuProvider, C
             level.setBlockAndUpdate(
                     worldPosition,
                     level.getBlockState(worldPosition).setValue(RechargerBlock.HAS_JETPACK, hasJetpack));
-            SimpleJetpack.LOGGER.info("slotChanged " + hasJetpack);
         }
     }
 
     @Override
     public void dataChanged(AbstractContainerMenu container, int id, int value) {
-
     }
 
     @Override
@@ -181,7 +179,7 @@ public class RechargerBlockEntity extends BlockEntity implements MenuProvider, C
             var r = random.nextInt(5);
             fuel = Math.clamp(fuel + 5 + r, 0, JetpackItem.MAX_FUEL);
             jetpackStack.set(JetpackItem.FUEL, fuel);
-            fuelLeft = Math.clamp(fuelLeft - 1 - r, 0, fuelLeft);
+            fuelLeft = Math.clamp(fuelLeft - 3 - r, 0, fuelLeft);
             setChanged();
         }
     }
