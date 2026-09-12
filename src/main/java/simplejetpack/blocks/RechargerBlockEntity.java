@@ -10,7 +10,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerListener;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,10 +25,12 @@ import simplejetpack.items.SimpleJetpackItems;
 import simplejetpack.menu.RechargerMenu;
 
 import java.util.Optional;
+import java.util.Random;
 
 public class RechargerBlockEntity extends BlockEntity implements MenuProvider, ContainerListener {
     public static final int JETPACK_SLOT_INDEX = 0;
     public static final int FUEL_SLOT_INDEX = 1;
+    private static final Random random = new Random();
     private final SimpleContainer container;
     private final ContainerData containerData;
     private int fuelLeft;
@@ -111,12 +115,6 @@ public class RechargerBlockEntity extends BlockEntity implements MenuProvider, C
 
         fuelLeft = input.getIntOr("fuel_left", 0);
         fuelMax = input.getIntOr("fuel_max", 0);
-        
-//        getLevel().setBlockAndUpdate(
-//                worldPosition,
-//                level.getBlockState(worldPosition).setValue(
-//                        RechargerBlock.HAS_JETPACK,
-//                        container.getItem(JETPACK_SLOT_INDEX).is(SimpleJetpackItems.JETPACK)));
     }
 
     @Override
@@ -147,6 +145,45 @@ public class RechargerBlockEntity extends BlockEntity implements MenuProvider, C
     public void tick(Level world, BlockPos pos, BlockState state) {
         var jetpackStack = container.getItem(JETPACK_SLOT_INDEX);
         var fuelStack = container.getItem(FUEL_SLOT_INDEX);
+        var hasJetpack = !jetpackStack.isEmpty();
+        var hasFuel = !fuelStack.isEmpty();
+        var fuel = jetpackStack.getOrDefault(JetpackItem.FUEL, 0);
+        var needsCharging = fuel < JetpackItem.MAX_FUEL;
+
+        if (!hasJetpack || !needsCharging) {
+            fuelLeft = fuelMax = 0;
+            return;
+        }
+
+        // If we don't have a fuel element that we're burning,
+        // check if we have one that we can burn to fill up our
+        // state.
+        if (fuelLeft == 0) {
+            if (hasFuel) {
+                var replaceWithBucket = fuelStack.getItem() instanceof BucketItem;
+                // take a fuel
+                fuelLeft = fuelMax = world.fuelValues().burnDuration(fuelStack);
+                if (fuelLeft > 0) {
+                    fuelStack.shrink(1);
+                    if (replaceWithBucket) {
+                        container.setItem(FUEL_SLOT_INDEX, new ItemStack(Items.BUCKET));
+                    }
+                }
+            }
+            else {
+                fuelMax = 0;
+            }
+        }
+
+        // If we're burning fuel, increase fuel for the jetpack and
+        // decrease available fuel.
+        if (fuelLeft > 0) {
+            var r = random.nextInt(5);
+            fuel = Math.clamp(fuel + 5 + r, 0, JetpackItem.MAX_FUEL);
+            jetpackStack.set(JetpackItem.FUEL, fuel);
+            fuelLeft = Math.clamp(fuelLeft - 1 - r, 0, fuelLeft);
+            setChanged();
+        }
     }
 
     public void swapItem(Inventory inventory, ItemStack itemStack) {

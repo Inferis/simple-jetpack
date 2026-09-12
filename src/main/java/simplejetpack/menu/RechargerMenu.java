@@ -86,4 +86,12 @@ public class RechargerMenu extends AbstractContainerMenu {
     public boolean isFuel(ItemStack stack) {
         return level.fuelValues().isFuel(stack);
     }
+
+    public boolean isCharging() {
+        return getChargeProgress() > 0;
+    }
+
+    public float getChargeProgress() {
+        return ((float)data.get(1) - data.get(0)) / data.get(1);
+    }
 }

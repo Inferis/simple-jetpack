@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -96,6 +97,16 @@ public class RechargerBlock extends Block implements EntityBlock, BlockEntityTic
         }
 
         return super.playerWillDestroy(world, pos, state, player);
+    }
+
+    @Override
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> type) {
+        if (type == SimpleJetpackBlockEntityTypes.RECHARGER) {
+            return (BlockEntityTicker<T>)this;
+        }
+        else {
+            return null;
+        }
     }
 
     @Override
