@@ -1,0 +1,12 @@
+{
+  "item.simplejetpack.jetpack": "Jetpack",
+
+  "block.simplejetpack.recharger": "Recharger",
+
+  "key.simplejetpack.hover": "Hover",
+  "category.simplejetpack.keys": "Jetpack",
+
+  "tooltip.simplejetpack.fuel": "Fuel: %s of %s",
+
+  "screen.simplejetpack.recharger.title": "Recharger"
+}
