@@ -7,6 +7,7 @@ public class SimpleJetpackNetworking {
     public static void registerPayloads() {
         registerSetJetpackActiveC2SPayload();
         registerSetDamageC2SPayload();
+        registerOpenRechargerC2SPayload();
     }
 
     private static void registerSetJetpackActiveC2SPayload() {
@@ -17,5 +18,10 @@ public class SimpleJetpackNetworking {
     private static void registerSetDamageC2SPayload() {
         PayloadTypeRegistry.serverboundPlay().register(SetJetpackFuelC2SPayload.ID, SetJetpackFuelC2SPayload.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(SetJetpackFuelC2SPayload.ID, SetJetpackFuelC2SPayload::handle);
+    }
+
+    private static void registerOpenRechargerC2SPayload() {
+        PayloadTypeRegistry.serverboundPlay().register(OpenRechargerC2SPayload.ID, OpenRechargerC2SPayload.CODEC);
+        ServerPlayNetworking.registerGlobalReceiver(OpenRechargerC2SPayload.ID, OpenRechargerC2SPayload::handle);
     }
 }

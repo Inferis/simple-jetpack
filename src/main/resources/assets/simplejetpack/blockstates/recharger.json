@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "has_jetpack=false,facing=north": {
+      "model": "simplejetpack:block/recharger",
+      "y": 90
+    },
+    "has_jetpack=false,facing=south": {
+      "model": "simplejetpack:block/recharger",
+      "y": 270
+    },
+    "has_jetpack=false,facing=east": {
+      "model": "simplejetpack:block/recharger",
+      "y": 180
+    },
+    "has_jetpack=false,facing=west": {
+      "model": "simplejetpack:block/recharger"
+    },
+    "has_jetpack=true,facing=north": {
+      "model": "simplejetpack:block/recharger_loaded",
+      "y": 90
+    },
+    "has_jetpack=true,facing=south": {
+      "model": "simplejetpack:block/recharger_loaded",
+      "y": 270
+    },
+    "has_jetpack=true,facing=east": {
+      "model": "simplejetpack:block/recharger_loaded",
+      "y": 180
+    },
+    "has_jetpack=true,facing=west": {
+      "model": "simplejetpack:block/recharger_loaded"
+    }
+  }
+}

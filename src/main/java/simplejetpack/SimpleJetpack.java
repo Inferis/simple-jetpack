@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import simplejetpack.blocks.SimpleJetpackBlockEntityTypes;
 import simplejetpack.blocks.SimpleJetpackBlocks;
 import simplejetpack.items.SimpleJetpackItems;
+import simplejetpack.menu.SimpleJetpackMenuTypes;
 import simplejetpack.networking.SimpleJetpackNetworking;
 
 public class SimpleJetpack implements ModInitializer {
@@ -24,5 +25,6 @@ public class SimpleJetpack implements ModInitializer {
 		SimpleJetpackBlockEntityTypes.registerBlockEntityTypes();
 		SimpleJetpackItems.registerItems();
 		SimpleJetpackNetworking.registerPayloads();
+		SimpleJetpackMenuTypes.registerMenuTypes();
 	}
 }
