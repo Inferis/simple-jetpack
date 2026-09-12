@@ -25,7 +25,7 @@ import static net.minecraft.world.item.equipment.EquipmentAssets.ROOT_ID;
 import static simplejetpack.items.SimpleJetpackItems.JETPACK_TOOLTIP_APPENDER;
 
 public class JetpackItem extends Item {
-    public static final Integer MAX_FUEL = 5000;
+    public static final Integer MAX_FUEL = 50000;
 
     public static final DataComponentType<Boolean> ACTIVE = Registry.register(
             BuiltInRegistries.DATA_COMPONENT_TYPE,
