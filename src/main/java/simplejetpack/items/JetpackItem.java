@@ -22,6 +22,7 @@ import simplejetpack.SimpleJetpack;
 import java.util.Optional;
 
 import static net.minecraft.world.item.equipment.EquipmentAssets.ROOT_ID;
+import static simplejetpack.items.SimpleJetpackItems.JETPACK_TOOLTIP_APPENDER;
 
 public class JetpackItem extends Item {
     public static final Integer MAX_FUEL = 5000;
@@ -50,6 +51,7 @@ public class JetpackItem extends Item {
                         )
                         .stacksTo(1)
                         .component(FUEL, MAX_FUEL)
+                        .component(JETPACK_TOOLTIP_APPENDER, new JetpackToolTipAppender())
                 // ACTIVE isn't necessary to initialize
         );
     }
