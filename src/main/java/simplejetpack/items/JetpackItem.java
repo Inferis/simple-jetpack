@@ -50,7 +50,7 @@ public class JetpackItem extends Item {
                                         .build()
                         )
                         .stacksTo(1)
-                        .component(FUEL, MAX_FUEL)
+                        .component(FUEL, 0)
                         .component(JETPACK_TOOLTIP_APPENDER, new JetpackToolTipAppender())
                 // ACTIVE isn't necessary to initialize
         );
