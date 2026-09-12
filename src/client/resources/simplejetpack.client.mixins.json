@@ -3,7 +3,8 @@
 	"package": "simplejetpack.client.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"client": [
-		"PlayerEntityRendererMixin"
+		"PlayerEntityRendererMixin",
+		"LivingEntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
