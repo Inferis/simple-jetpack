@@ -6,7 +6,7 @@
   "key.simplejetpack.hover": "Hover",
   "category.simplejetpack.keys": "Jetpack",
 
-  "tooltip.simplejetpack.fuel": "Fuel: %s of %s",
+  "tooltip.simplejetpack.fuel": "Fuel: %s/%s",
 
   "screen.simplejetpack.recharger.title": "Recharger"
 }

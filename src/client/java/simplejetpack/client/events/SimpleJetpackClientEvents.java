@@ -2,12 +2,13 @@ package simplejetpack.client.events;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.util.Mth;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import simplejetpack.SimpleJetpack;
+import simplejetpack.client.rendering.JetpackHudElement;
 import simplejetpack.items.JetpackItem;
 import simplejetpack.networking.SetJetpackActiveC2SPayload;
 import simplejetpack.networking.SetJetpackFuelC2SPayload;
@@ -15,7 +16,7 @@ import simplejetpack.networking.SetJetpackFuelC2SPayload;
 public class SimpleJetpackClientEvents {
     public static void registerEvents() {
         ClientTickEvents.START_CLIENT_TICK.register(SimpleJetpackClientEvents::onClientTick);
-        //HudRenderCallback.EVENT.register(SimpleJetpackClientEvents::onHudRender);
+        HudElementRegistry.attachElementAfter(VanillaHudElements.BOSS_BAR, SimpleJetpack.id("hud"), new JetpackHudElement());
     }
 
     private static void onClientTick(Minecraft minecraft) {
