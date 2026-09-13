@@ -1,7 +1,9 @@
 package simplejetpack.blocks;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -19,12 +21,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jspecify.annotations.Nullable;
-import simplejetpack.SimpleJetpack;
 import simplejetpack.items.JetpackItem;
 import simplejetpack.items.SimpleJetpackItems;
 import simplejetpack.menu.RechargerMenu;
 
-import java.util.Optional;
 import java.util.Random;
 
 public class RechargerBlockEntity extends BlockEntity implements MenuProvider, ContainerListener {
@@ -35,10 +35,14 @@ public class RechargerBlockEntity extends BlockEntity implements MenuProvider, C
     private final ContainerData containerData;
     private int fuelLeft;
     private int fuelMax;
+    private int particleCounter;
 
     public RechargerBlockEntity(BlockPos worldPosition, BlockState blockState) {
         super(SimpleJetpackBlockEntityTypes.RECHARGER, worldPosition, blockState);
         container = new SimpleContainer(2);
+        particleCounter = 0;
+        fuelLeft = 0;
+        fuelMax = 0;
 
         this.containerData = new ContainerData() {
             public int get(int index) {
@@ -181,6 +185,13 @@ public class RechargerBlockEntity extends BlockEntity implements MenuProvider, C
             jetpackStack.set(JetpackItem.FUEL, fuel);
             fuelLeft = Math.clamp(fuelLeft - 3 - r, 0, fuelLeft);
             setChanged();
+
+            if (level instanceof ServerLevel serverLevel) {
+                if (particleCounter++ > 3) {
+                    serverLevel.sendParticles(ParticleTypes.ELECTRIC_SPARK, worldPosition.getX() + 0.75, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, 3, -0.25, -0.5, -0.25, 0.05);
+                    particleCounter = 0;
+                }
+            }
         }
     }
 

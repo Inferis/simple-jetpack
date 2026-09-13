@@ -1,6 +1,5 @@
 package simplejetpack.blocks;
 
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
@@ -25,7 +24,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.Nullable;
 import simplejetpack.items.SimpleJetpackItems;
-import simplejetpack.networking.OpenRechargerC2SPayload;
 
 public class RechargerBlock extends Block implements EntityBlock, BlockEntityTicker<RechargerBlockEntity> {
     private static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 1.0, 16.0);
