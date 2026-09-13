@@ -1,6 +1,7 @@
 package simplejetpack.items;
 
 import com.mojang.serialization.MapCodec;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
@@ -8,6 +9,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import simplejetpack.SimpleJetpack;
@@ -18,11 +20,15 @@ import java.util.function.Function;
 
 public class SimpleJetpackItems {
     public static JetpackItem JETPACK;
+    public static Item JETPACK_ENGINE;
+    public static Item JETPACK_CORE;
     public static BlockItem RECHARGER;
 
     public static void registerItems() {
         JETPACK = registerItem("jetpack", JetpackItem::new, new Item.Properties());
         RECHARGER = registerItem("recharger", BlockItem::new, SimpleJetpackBlocks.RECHARGER, new Item.Properties());
+        JETPACK_ENGINE = registerItem("jetpack_engine", Item::new, new Item.Properties());
+        JETPACK_CORE = registerItem("jetpack_core", Item::new, new Item.Properties());
 
         ItemComponentTooltipProviderRegistry.addLast(JETPACK_TOOLTIP_APPENDER);
     }
@@ -37,6 +43,15 @@ public class SimpleJetpackItems {
         var key = ResourceKey.create(Registries.ITEM, SimpleJetpack.id(identifier));
         var item = factory.apply(block, properties.setId(key));
         return Registry.register(BuiltInRegistries.ITEM, key, item);
+    }
+
+    public static void registerCreativeTabs() {
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(content -> {
+            content.accept(RECHARGER);
+            content.accept(JETPACK);
+            content.accept(JETPACK_ENGINE);
+            content.accept(JETPACK_CORE);
+        });
     }
 
     public static final DataComponentType<JetpackToolTipAppender> JETPACK_TOOLTIP_APPENDER = Registry.register(

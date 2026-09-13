@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "   ",
+    "ECE",
+    "   "
+  ],
+  "key": {
+    "E": "simplejetpack:jetpack_engine",
+    "C": "simplejetpack:jetpack_core"
+  },
+  "result": {
+    "id": "simplejetpack:jetpack",
+    "count": 1
+  }
+}

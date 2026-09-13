@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "simplejetpack:item/jetpack_engine"
+  }
+}
